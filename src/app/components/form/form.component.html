@@ -1,1 +1,180 @@
-<p>form works!</p>
+<div class="top-space"></div>
+<div class="form-div container">
+  <form [formGroup]="form">
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" type="text" placeholder="Name" formControlName="name" />
+      <div *ngIf="name?.invalid && name?.touched" class="errors-alert">
+        <p *ngIf="name?.errors?.required">Name is required.</p>
+        <p *ngIf="name?.errors?.minlength">
+          Name should have at list 4 characters.
+        </p>
+        <p *ngIf="name?.errors?.maxlength">
+          Name should not have more than 15 characters.
+        </p>
+      </div>
+    </div>
+    <div>
+      <label for="last-name">Last name:</label>
+      <input
+        id="last-name"
+        type="text"
+        placeholder="Last name"
+        formControlName="lastName"
+      />
+      <div *ngIf="lastName?.invalid && lastName?.touched" class="errors-alert">
+        <p *ngIf="lastName?.errors?.required">Last name is required.</p>
+        <p *ngIf="lastName?.errors?.minlength">
+          Last name should have at list 4 characters.
+        </p>
+        <p *ngIf="lastName?.errors?.maxlength">
+          Last name should not have more than 15 characters.
+        </p>
+      </div>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input
+        id="email"
+        type="text"
+        placeholder="Email"
+        formControlName="email"
+      />
+      <div *ngIf="email?.invalid && email?.touched" class="errors-alert">
+        <ng-template [ngIf]="email?.errors?.required"
+          ><p>Email is required.</p></ng-template
+        >
+      </div>
+    </div>
+    <div>
+      <label for="password">Password: </label>
+      <input
+        id="password"
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <div *ngIf="password?.invalid && password?.touched" class="errors-alert">
+        <ng-template [ngIf]="password?.errors?.required">
+          <p>Password is required.</p>
+        </ng-template>
+      </div>
+    </div>
+    <div>
+      <label for="confirm-password">Confirm password: </label>
+      <input
+        id="confirm-password"
+        type="password"
+        placeholder="Confirm password"
+        formControlName="passwordConfirmation"
+      />
+      <div
+        *ngIf="passwordConfirmation?.invalid && passwordConfirmation?.touched"
+        class="errors-alert"
+      >
+        <ng-template [ngIf]="passwordConfirmation?.errors?.required">
+          <p>Password confirmation is required.</p>
+        </ng-template>
+      </div>
+    </div>
+    <div>
+      <label for="date-of-birth">Date of birth: </label>
+      <input
+        id="date-of-birth"
+        type="date"
+        placeholder="Date of birth"
+        formControlName="dateOfBirth"
+      />
+      <div
+        *ngIf="dateOfBirth?.invalid && dateOfBirth?.touched"
+        class="errors-alert"
+      >
+        <p *ngIf="dateOfBirth?.errors?.minDate">
+          Date must be less than the current one.
+        </p>
+      </div>
+    </div>
+    <div>
+      <label for="telephone-number">Telephone number: </label>
+      <input
+        id="telephone-number"
+        type="text"
+        placeholder="Telephone number"
+        formControlName="telephone"
+      />
+      <div
+        *ngIf="telephone?.invalid && telephone?.touched"
+        class="errors-alert"
+      >
+        <ng-template [ngIf]="telephone?.errors?.required"
+          ><p>Telephone number is required.</p></ng-template
+        >
+        <ng-template [ngIf]="telephone?.errors?.numbersOnly"
+          ><p>Telephone must have only numeric characters.</p></ng-template
+        >
+      </div>
+    </div>
+    <div>
+      <label for="personal-site">Personal site URL: </label>
+      <input
+        id="personal-site"
+        type="url"
+        placeholder="Personal site URL"
+        formControlName="personalSite"
+      />
+      <div
+        *ngIf="personalSite?.invalid && personalSite?.touched"
+        class="errors-alert"
+      >
+        <p *ngIf="personalSite?.errors?.urlType">
+          Personal site must be of the url type.
+        </p>
+      </div>
+    </div>
+    <div>
+      <label for="about-me">About me: </label>
+      <textarea
+        name="about-me"
+        id="about-me"
+        placeholder="About me..."
+      ></textarea>
+    </div>
+    <div class="radio">
+      <label>
+        <input
+          type="radio"
+          name="genre"
+          value="male"
+          formControlName="genre"
+        />Male
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input
+          type="radio"
+          name="genre"
+          value="female"
+          formControlName="genre"
+        />Female
+      </label>
+    </div>
+    <div>
+      <div>
+        <label for="country">Select a country:</label>
+        <select id="country" formControlName="country"></select>
+      </div>
+      <div>
+        <label for="state">Select a state:</label>
+        <select id="state" formControlName="state"></select>
+      </div>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="terms" formControlName="terms" />Agree
+        terms and conditions
+      </label>
+    </div>
+    <button>Accept</button>
+  </form>
+</div>

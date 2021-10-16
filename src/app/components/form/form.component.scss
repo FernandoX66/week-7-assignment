@@ -1,0 +1,117 @@
+$fontFamily: "Nunito", sans-serif;
+$darkColor: #144969;
+$mediumColor: #236085;
+$whiteColor: #fdfdfd;
+$inputFontColor: #464646;
+$inputBorderColor: #a0a0a0;
+$disabledColor: #5a99bf;
+$errorAlertColor: #f5dcdc;
+$errorColor: #a12929;
+
+.top-space {
+  height: 100px;
+  background-color: $mediumColor;
+}
+
+.form-div {
+  background-color: $whiteColor;
+  margin: {
+    top: -50px;
+    bottom: 40px;
+  }
+  padding: 25px 40px 40px 40px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.274);
+
+  form {
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    select,
+    textarea,
+    input {
+      font: {
+        family: $fontFamily;
+        size: 16px;
+      }
+      color: $inputFontColor;
+      padding: 8px 14px;
+      margin: 15px 0 0 0;
+      border: 1px solid $inputBorderColor;
+      border-radius: 5px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+    }
+
+    textarea {
+      min-height: 60px;
+    }
+
+    button {
+      font: {
+        family: $fontFamily;
+        weight: bold;
+        size: 16px;
+      }
+      background-color: $mediumColor;
+      color: $whiteColor;
+      margin-top: 15px;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+
+      @media (min-width: 480px) {
+        width: unset;
+      }
+    }
+
+    button:hover {
+      background-color: $darkColor;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: $disabledColor;
+      cursor: unset;
+    }
+
+    .checkbox,
+    .radio {
+      label {
+        margin: 0;
+        width: 100%;
+      }
+
+      input {
+        display: inline-block;
+        margin-right: 10px;
+        width: auto;
+        min-width: unset;
+      }
+    }
+
+    .radio:last-of-type {
+      margin-bottom: 15px;
+    }
+
+    .errors-alert {
+      background-color: $errorAlertColor;
+      padding: 7px 10px;
+      border-radius: 5px;
+
+      p {
+        color: $errorColor;
+        margin: 0;
+        padding: 2px 0;
+      }
+    }
+
+    .ng-invalid.ng-touched {
+      border: 2px solid $errorColor;
+    }
+  }
+}
