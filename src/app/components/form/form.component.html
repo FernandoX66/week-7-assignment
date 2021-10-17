@@ -1,6 +1,6 @@
 <div class="top-space"></div>
 <div class="form-div container">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="submit()">
     <div>
       <label for="name">Name:</label>
       <input id="name" type="text" placeholder="Name" formControlName="name" />
@@ -41,9 +41,7 @@
         formControlName="email"
       />
       <div *ngIf="email?.invalid && email?.touched" class="errors-alert">
-        <ng-template [ngIf]="email?.errors?.required"
-          ><p>Email is required.</p></ng-template
-        >
+        <p *ngIf="email?.errors?.required">Email is required.</p>
       </div>
     </div>
     <div>
@@ -55,9 +53,7 @@
         formControlName="password"
       />
       <div *ngIf="password?.invalid && password?.touched" class="errors-alert">
-        <ng-template [ngIf]="password?.errors?.required">
-          <p>Password is required.</p>
-        </ng-template>
+        <p *ngIf="password?.errors?.required">Password is required.</p>
       </div>
     </div>
     <div>
@@ -72,9 +68,12 @@
         *ngIf="passwordConfirmation?.invalid && passwordConfirmation?.touched"
         class="errors-alert"
       >
-        <ng-template [ngIf]="passwordConfirmation?.errors?.required">
-          <p>Password confirmation is required.</p>
-        </ng-template>
+        <p *ngIf="passwordConfirmation?.errors?.required">
+          Password confirmation is required.
+        </p>
+        <p *ngIf="passwordConfirmation?.errors?.mustMatch">
+          Passwords have to match.
+        </p>
       </div>
     </div>
     <div>
@@ -106,12 +105,10 @@
         *ngIf="telephone?.invalid && telephone?.touched"
         class="errors-alert"
       >
-        <ng-template [ngIf]="telephone?.errors?.required"
-          ><p>Telephone number is required.</p></ng-template
-        >
-        <ng-template [ngIf]="telephone?.errors?.numbersOnly"
-          ><p>Telephone must have only numeric characters.</p></ng-template
-        >
+        <p *ngIf="telephone?.errors?.required">Telephone number is required.</p>
+        <p *ngIf="telephone?.errors?.numbersOnly">
+          Telephone must have only numeric characters.
+        </p>
       </div>
     </div>
     <div>
@@ -162,11 +159,11 @@
     <div>
       <div>
         <label for="country">Select a country:</label>
-        <select id="country" formControlName="country"></select>
+        <select id="country"></select>
       </div>
       <div>
         <label for="state">Select a state:</label>
-        <select id="state" formControlName="state"></select>
+        <select id="state"></select>
       </div>
     </div>
     <div class="checkbox">
@@ -174,7 +171,12 @@
         <input type="checkbox" name="terms" formControlName="terms" />Agree
         terms and conditions
       </label>
+      <div *ngIf="terms?.invalid && terms?.touched" class="errors-alert">
+        <p *ngIf="terms?.errors?.required">
+          You must accept terms and conditions.
+        </p>
+      </div>
     </div>
-    <button>Accept</button>
+    <button [disabled]="form.invalid">Accept</button>
   </form>
 </div>

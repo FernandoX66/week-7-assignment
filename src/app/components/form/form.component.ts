@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { DateValidators } from 'src/app/validators/date.validators';
+import { PasswordValidators } from 'src/app/validators/password.validators';
 import { siteValidators } from 'src/app/validators/site.validators';
 import { TelephoneValidators } from 'src/app/validators/telephone.validators';
 
@@ -37,14 +38,17 @@ export class FormComponent implements OnInit {
       ],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      passwordConfirmation: ['', Validators.required],
+      passwordConfirmation: [
+        '',
+        [Validators.required, PasswordValidators.mustMatch],
+      ],
       dateOfBirth: ['', [Validators.required, DateValidators.minDate]],
       telephone: ['', [Validators.required, TelephoneValidators.numbersOnly]],
       personalSite: ['', siteValidators.urlType],
       genre: ['', Validators.required],
-      country: ['', Validators.required],
-      state: ['', Validators.required],
-      terms: ['', Validators.required],
+      // country: ['', Validators.required],
+      // state: ['', Validators.required],
+      terms: ['', Validators.requiredTrue],
     });
   }
 
@@ -80,5 +84,13 @@ export class FormComponent implements OnInit {
 
   get personalSite(): AbstractControl | null {
     return this.form.get('personalSite');
+  }
+
+  get terms(): AbstractControl | null {
+    return this.form.get('terms');
+  }
+
+  submit(): void {
+    console.log(this.form.value);
   }
 }
