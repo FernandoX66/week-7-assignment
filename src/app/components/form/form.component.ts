@@ -5,7 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { CountriesService } from 'src/app/services/countries.service';
 import { DateValidators } from 'src/app/validators/date.validators';
+import { NameValidators } from 'src/app/validators/name.validators';
 import { PasswordValidators } from 'src/app/validators/password.validators';
 import { siteValidators } from 'src/app/validators/site.validators';
 import { TelephoneValidators } from 'src/app/validators/telephone.validators';
@@ -17,8 +19,14 @@ import { TelephoneValidators } from 'src/app/validators/telephone.validators';
 })
 export class FormComponent implements OnInit {
   form: FormGroup;
+  countriesList: any = [];
+  statesList: any = [];
+  filteredStates: any = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private countriesService: CountriesService
+  ) {
     this.form = fb.group({
       name: [
         '',
@@ -26,6 +34,7 @@ export class FormComponent implements OnInit {
           Validators.required,
           Validators.minLength(4),
           Validators.maxLength(15),
+          NameValidators.capitalLetter,
         ],
       ],
       lastName: [
@@ -34,6 +43,7 @@ export class FormComponent implements OnInit {
           Validators.required,
           Validators.minLength(4),
           Validators.maxLength(15),
+          NameValidators.capitalLetter,
         ],
       ],
       email: ['', Validators.required],
@@ -46,13 +56,23 @@ export class FormComponent implements OnInit {
       telephone: ['', [Validators.required, TelephoneValidators.numbersOnly]],
       personalSite: ['', siteValidators.urlType],
       genre: ['', Validators.required],
-      // country: ['', Validators.required],
-      // state: ['', Validators.required],
+      address: fb.group({
+        country: ['', Validators.required],
+        state: ['', Validators.required],
+      }),
       terms: ['', Validators.requiredTrue],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.countriesService
+      .getCountries()
+      .subscribe((response: Response) => (this.countriesList = response));
+
+    this.countriesService.getStates().subscribe((response: Response) => {
+      this.statesList = response;
+    });
+  }
 
   get name(): AbstractControl | null {
     return this.form.get('name');
@@ -86,8 +106,26 @@ export class FormComponent implements OnInit {
     return this.form.get('personalSite');
   }
 
+  get genre(): AbstractControl | null {
+    return this.form.get('genre');
+  }
+
+  get country(): AbstractControl | null | undefined {
+    return this.form.get('address')?.get('country');
+  }
+
+  get state(): AbstractControl | null | undefined {
+    return this.form.get('address')?.get('state');
+  }
+
   get terms(): AbstractControl | null {
     return this.form.get('terms');
+  }
+
+  filterStates(): void {
+    this.filteredStates = this.statesList.states.filter(
+      (state: any) => state.id_country == this.country?.value
+    );
   }
 
   submit(): void {

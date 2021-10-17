@@ -4,9 +4,11 @@ $mediumColor: #236085;
 $whiteColor: #fdfdfd;
 $inputFontColor: #464646;
 $inputBorderColor: #a0a0a0;
+$inputFocusColor: #367fac;
 $disabledColor: #5a99bf;
 $errorAlertColor: #f5dcdc;
 $errorColor: #a12929;
+$requiredColor: #fb4646;
 
 .top-space {
   height: 100px;
@@ -27,6 +29,10 @@ $errorColor: #a12929;
     label {
       display: block;
       margin-top: 15px;
+
+      span {
+        color: $requiredColor;
+      }
     }
 
     select,
@@ -44,6 +50,12 @@ $errorColor: #a12929;
       width: 100%;
       max-width: 100%;
       min-width: 100%;
+    }
+
+    select:focus,
+    textarea:focus,
+    input:focus {
+      outline-color: $inputFocusColor;
     }
 
     textarea {
@@ -100,7 +112,7 @@ $errorColor: #a12929;
 
     .errors-alert {
       background-color: $errorAlertColor;
-      padding: 7px 10px;
+      padding: 7px 15px;
       border-radius: 5px;
 
       p {
@@ -110,7 +122,8 @@ $errorColor: #a12929;
       }
     }
 
-    .ng-invalid.ng-touched {
+    input.ng-invalid.ng-touched,
+    select.ng-invalid.ng-touched {
       border: 2px solid $errorColor;
     }
   }
