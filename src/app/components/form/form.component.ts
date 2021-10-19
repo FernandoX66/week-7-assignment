@@ -5,6 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Countries } from 'src/app/interfaces/countries.interface';
+import { Country } from 'src/app/interfaces/country.interface';
+import { State } from 'src/app/interfaces/state.interface';
+import { states } from 'src/app/interfaces/states.interface';
 import { CountriesService } from 'src/app/services/countries.service';
 import { DateValidators } from 'src/app/validators/date.validators';
 import { NameValidators } from 'src/app/validators/name.validators';
@@ -19,9 +23,9 @@ import { TelephoneValidators } from 'src/app/validators/telephone.validators';
 })
 export class FormComponent implements OnInit {
   form: FormGroup;
-  countriesList: any = [];
-  statesList: any = [];
-  filteredStates: any = [];
+  countriesList: Country[] = [];
+  statesList: State[] = [];
+  filteredStates: State[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -67,10 +71,12 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.countriesService
       .getCountries()
-      .subscribe((response: Response) => (this.countriesList = response));
+      .subscribe(
+        (response: Countries) => (this.countriesList = response.countries)
+      );
 
-    this.countriesService.getStates().subscribe((response: Response) => {
-      this.statesList = response;
+    this.countriesService.getStates().subscribe((response: states) => {
+      this.statesList = response.states;
     });
   }
 
@@ -123,8 +129,8 @@ export class FormComponent implements OnInit {
   }
 
   filterStates(): void {
-    this.filteredStates = this.statesList.states.filter(
-      (state: any) => state.id_country == this.country?.value
+    this.filteredStates = this.statesList.filter(
+      (state: State) => state.id_country == this.country?.value
     );
   }
 
