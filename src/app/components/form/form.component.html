@@ -42,12 +42,13 @@
       <label for="email">Email: <span>*</span></label>
       <input
         id="email"
-        type="text"
+        type="email"
         placeholder="Email"
         formControlName="email"
       />
       <div *ngIf="email?.invalid && email?.touched" class="errors-alert">
         <p *ngIf="email?.errors?.required">Email is required.</p>
+        <p *ngIf="email?.errors?.emailType">Email must be of the email type.</p>
       </div>
     </div>
     <div>
@@ -173,10 +174,7 @@
           (change)="filterStates()"
           formControlName="country"
         >
-          <option
-            *ngFor="let country of countriesList"
-            [value]="country.id"
-          >
+          <option *ngFor="let country of countriesList" [value]="country.id">
             {{ country.name }}
           </option>
         </select>

@@ -11,6 +11,7 @@ import { State } from 'src/app/interfaces/state.interface';
 import { states } from 'src/app/interfaces/states.interface';
 import { CountriesService } from 'src/app/services/countries.service';
 import { DateValidators } from 'src/app/validators/date.validators';
+import { EmailValidators } from 'src/app/validators/email.validators';
 import { NameValidators } from 'src/app/validators/name.validators';
 import { PasswordValidators } from 'src/app/validators/password.validators';
 import { siteValidators } from 'src/app/validators/site.validators';
@@ -50,7 +51,7 @@ export class FormComponent implements OnInit {
           NameValidators.capitalLetter,
         ],
       ],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, EmailValidators.emailType]],
       password: ['', Validators.required],
       passwordConfirmation: [
         '',
